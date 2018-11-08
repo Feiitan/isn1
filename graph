@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<title>COUCOU</title>
+		<meta charset="utf-8"/>
+		<body onload="main()">
+		<script type="text/javascript">
+	
+	function main() {
+		var xmin = -10
+		var xmax = 10
+		var xgrad = 1
+		var ymin = -10
+		var ymax = 10
+		var ygrad = 1
+		var plot = document.getElementById("curve");
+		var pen = plot.getContext("2d");
+		var y0 = plot.height*(0-ymax)/(ymin-ymax);
+		var x0 = plot.width*(0-xmin)/(xmax-xmin);
+		
+		pen.beginPath();
+		pen.moveTo(0,y0);
+		pen.lineTo(plot.width,y0);
+		pen.moveTo(x0,plot.height);
+		pen.lineTo(x0,0);
+		pen.moveTo(plot.width,y0);
+		pen.lineTo(plot.width-15,y0+15);
+		pen.moveTo(plot.width,y0);
+		pen.lineTo(plot.width-15,y0-15);
+		pen.moveTo(x0,0);
+		pen.lineTo(x0-15,15);
+		pen.moveTo(x0,0);
+		pen.lineTo(x0+15,15);
+		pen.stroke();
+		
+			
+		var xd = Math.floor(plot.width*(xmax-xmin)/(xmax-xmin)); // xmax pixel
+		var xg = Math.ceil(plot.width*(xmin-xmin)/(xmax-xmin)); // xmin pixel
+		var xe = plot.width*(xgrad-xmin)/(xmax-xmin); // variation graduation en X
+		var xegrad = xe - x0 // graduation en X
+		var x = x0 
+
+	while (x<xd) {
+		pen.moveTo(x+xegrad,y0); // axe droite
+		pen.lineTo(x+xegrad,y0-10);
+		pen.stroke();
+		x = x + xegrad	
+  	}
+
+	var x = x0
+
+	while (x>xegrad) {
+		pen.moveTo(x-xegrad,y0); // axe gauche
+		pen.lineTo(x-xegrad,y0-10);
+		pen.stroke();
+		x = x - xegrad
+	}
+
+		var yh = Math.floor(plot.height*(ymax-ymax)/(ymin-ymax)); // ymax pixel
+		var yb = Math.ceil(plot.height*(ymin-ymax)/(ymin-ymax)); // ymin pixel
+		var ye = plot.height*(ygrad-ymax)/(ymin-ymax); // variation graduation en Y
+		var yegrad = y0 - ye // graduation en Y
+		var y = y0
+
+	while (y>yh) {
+		pen.moveTo(x0,y-yegrad); // axe haut
+		pen.lineTo(x0+10,y-yegrad);
+		pen.stroke();
+		y = y - yegrad
+    }
+
+	var y = y0
+
+	while (y<yb) {
+		pen.moveTo(x0,y+yegrad); // axe bas
+		pen.lineTo(x0+10,y+yegrad);
+		pen.stroke();
+		y = y + yegrad
+    }
+
+	
+	
+	
+}
+	</script>
+	</head>
+	<body>
+		<canvas id ="curve" width="800" height="450" style="background: pink"/>
+	</body>
+</html>
